@@ -1,10 +1,8 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_interpolation_to_compose_strings
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:intl/intl.dart';
 import 'package:test_flutter/Components/ButtonComp.dart';
-import 'package:test_flutter/Components/DropDownMultiSelect.dart';
 import 'package:test_flutter/Components/DropDownReceipients.dart';
 import 'package:test_flutter/Components/InputComponent.dart';
 import 'package:test_flutter/Components/PopupButton.dart';
@@ -20,7 +18,7 @@ class Invitations extends StatefulWidget {
 }
 
 class _InvitationsState extends State<Invitations> {
-  List<String> selectedValue = [];
+  String? selectedValue; // To hold the selected dropdown value
   TextEditingController nameController = TextEditingController();
   TextEditingController messageController = TextEditingController();
 
@@ -240,25 +238,6 @@ class _InvitationsState extends State<Invitations> {
     );
   }
 
-  TextEditingController dateController =
-      TextEditingController(); // New date controller
-
-  // Function to show the Date Picker
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? pickedDate = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2101),
-    );
-    if (pickedDate != null) {
-      setState(() {
-        // Format the date to 'MM/dd/yyyy' format and update the controller
-        dateController.text = DateFormat('MM/dd/yyyy').format(pickedDate);
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -266,214 +245,244 @@ class _InvitationsState extends State<Invitations> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20),
-          child: Container(
-            width: double.infinity,
-            height: double.infinity,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: SingleChildScrollView(
-                // Added scroll view
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Row with text
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SvgPicture.asset(
-                          'assets/Images/backArrow.svg',
-                          width: 25,
-                          height: 25,
+                        // Row with text
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset(
+                              'assets/Images/backArrow.svg',
+                              width: 25,
+                              height: 25,
+                            ),
+                            const SizedBox(width: 5), // gap
+                            const Text(
+                              'Invitations',
+                              style: TextStyle(
+                                fontSize: 22,
+                                fontFamily: 'Bree',
+                              ),
+                            ),
+                          ],
                         ),
-                        const SizedBox(width: 5), // gap
-                        const Text(
-                          'Invitation',
-                          style: TextStyle(
-                            fontSize: 22,
-                            fontFamily: 'Bree',
+                        const SizedBox(
+                            height: 20), // Add space between text and dropdown
+
+                        InputComponent(
+                            hintText: "Event name (e.g., Birthday Party)",
+                            controller: TextEditingController()),
+                        SizedBox(height: 30),
+                        Separator(
+                          height: 10,
+                          dashWidth: 6,
+                          dashSpace: 2,
+                          color: Color(0XFFD5D5D5),
+                        ),
+                        SizedBox(height: 16),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text("Choose Template",
+                                  style: TextStyle(
+                                      fontFamily: "Bree", fontSize: 16)),
+                              Row(
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {},
+                                    child: SvgPicture.asset(
+                                      'assets/Images/sliders-horizontal.svg',
+                                      width: 20,
+                                      height: 20,
+                                    ),
+                                  ),
+                                  SizedBox(width: 15),
+                                  GestureDetector(
+                                    onTap: () {},
+                                    child: SvgPicture.asset(
+                                      'assets/Images/scan-eye.svg',
+                                      width: 20,
+                                      height: 20,
+                                    ),
+                                  )
+                                ],
+                              )
+                            ]),
+                        SizedBox(height: 15),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: List.generate(templates.length, (index) {
+                              return Row(
+                                children: [
+                                  Container(
+                                    width: 90,
+                                    height: 140,
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey[300],
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(15),
+                                      child: Image.asset(
+                                        "assets/Images/imageTest.jpeg",
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                  // Add a gap after every item except the last
+                                  if (index < templates.length - 1)
+                                    SizedBox(width: 10),
+                                ],
+                              );
+                            }),
                           ),
                         ),
+                        SizedBox(height: 15),
+                        Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              PopupButton(
+                                buttonText: 'Gftee',
+                                width:
+                                    MediaQuery.of(context).size.width * 0.385,
+                                onPressed: _showPopupAi,
+                                icon: "Gftee",
+                              ),
+                              SizedBox(height: 8),
+                              PopupButton(
+                                buttonText: 'Upload',
+                                width:
+                                    MediaQuery.of(context).size.width * 0.385,
+                                onPressed: _showPopupTemplates,
+                                icon: "upload",
+                              ),
+                            ]),
                       ],
                     ),
-                    const SizedBox(
-                        height: 20), // Add space between text and dropdown
-
-                    // Dropdown Component
-                    DropDownReceipientsMultiSelect(
-                      items: dropdownItems, // Pass the list of items
-                      selectedValues:
-                          selectedValue, // List to store selected values
-                      onChanged: (List<String> selectedItems) {
-                        setState(() {
-                          // Handle selected items
-                          this.selectedValue = selectedItems;
-                        });
-                      },
-                      hint: 'Select Receipients', // Hint for the dropdown
-                    ),
-                    SizedBox(height: 20),
-                    Separator(
-                      height: 10,
-                      dashWidth: 6,
-                      dashSpace: 2,
-                      color: Color(0XFFD5D5D5),
-                    ),
-                    SizedBox(height: 8),
-                    Text("Details Required",
-                        style: TextStyle(fontFamily: "Bree", fontSize: 16)),
-                    SizedBox(height: 13),
-                    InputComponent(
-                      hintText: "Name",
-                      controller: TextEditingController(),
-                      backgroundColor: Colors.white,
-                      borderColor: Colors.black,
-                      textColor: Colors.black,
-                      hintTextColor: Colors.black,
-                      keyboardType: TextInputType.text,
-                    ),
-                    SizedBox(height: 10),
-                    GestureDetector(
-                        onTap: () => _selectDate(context),
-                        child: Container(
-                          width: double.infinity,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.black),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 20, right: 20),
-                            child: Row(
+                  ),
+                ),
+                SizedBox(height: 20),
+                Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(height: 8),
+                            Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Text(
-                                  dateController.text.isEmpty
-                                      ? 'Select Date'
-                                      : dateController.text,
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 14,
-                                      fontFamily: "EthosNova",
-                                      fontWeight: FontWeight.w500),
-                                ),
-                                SvgPicture.asset(
-                                  'assets/Images/downChevron.svg',
-                                  width: 7,
-                                  height: 7,
-                                ),
+                                Text("Event Details",
+                                    style: TextStyle(
+                                        fontFamily: "Bree", fontSize: 16)),
+                                Text("Step" + " 2 " + "of 2",
+                                    style: TextStyle(
+                                        fontFamily: "EthosNova",
+                                        fontSize: 12,
+                                        color: Color(0xff808080)))
                               ],
                             ),
-                          ),
-                        )),
-                    SizedBox(height: 10),
-                    InputComponent(
-                      hintText: "Location",
-                      controller: TextEditingController(),
-                      backgroundColor: Colors.white,
-                      borderColor: Colors.black,
-                      textColor: Colors.black,
-                      hintTextColor: Colors.black,
-                      keyboardType: TextInputType.text,
-                    ),
-                    SizedBox(height: 10),
-                    InputComponent(
-                      hintText: "Link",
-                      controller: TextEditingController(),
-                      backgroundColor: Colors.white,
-                      borderColor: Colors.black,
-                      textColor: Colors.black,
-                      hintTextColor: Colors.black,
-                      keyboardType: TextInputType.text,
-                    ),
-                    SizedBox(height: 20),
-                    Separator(
-                      height: 10,
-                      dashWidth: 6,
-                      dashSpace: 2,
-                      color: Color(0XFFD5D5D5),
-                    ),
-
-                    SizedBox(height: 8),
-
-                    Text("Choose Image",
-                        style: TextStyle(fontFamily: "Bree", fontSize: 16)),
-                    SizedBox(height: 13),
-                    PopupButton(
-                      buttonText: 'AI Generator',
-                      onPressed: _showPopupAi,
-                      icon: "bot",
-                    ),
-                    SizedBox(height: 8),
-                    PopupButton(
-                      buttonText: 'Gft. Templates',
-                      onPressed: _showPopupTemplates,
-                      icon: "image",
-                      isSelected: true,
-                    ),
-                    SizedBox(height: 8),
-                    PopupButton(
-                      buttonText: 'Upload',
-                      onPressed: _showPopupUpload,
-                      icon: "upload",
-                    ),
-                    SizedBox(height: 20),
-                    Separator(
-                      height: 10,
-                      dashWidth: 6,
-                      dashSpace: 2,
-                      color: Color(0XFFD5D5D5),
-                    ),
-                    SizedBox(height: 8),
-                    Text("Add Text",
-                        style: TextStyle(fontFamily: "Bree", fontSize: 16)),
-                    SizedBox(height: 13),
-                    Text("Use AI Generator",
-                        style: TextStyle(
-                            fontFamily: "EthosNova",
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500)),
-                    SizedBox(height: 3),
-                    TextAreaComponent(
-                      hintText: 'Type Your Text',
-                      controller: messageController,
-                      width: double.infinity,
-                      minLines: 2,
-                    ),
-                    SizedBox(height: 20),
-                    Text("Customized",
-                        style: TextStyle(
-                            fontFamily: "EthosNova",
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500)),
-                    SizedBox(height: 3),
-                    TextAreaComponent(
-                      hintText: 'Type Your Text',
-                      controller: messageController,
-                      width: double.infinity,
-                      minLines: 2,
-                    ),
-                    SizedBox(height: 20),
-                    Separator(
-                      height: 10,
-                      dashWidth: 6,
-                      dashSpace: 2,
-                      color: Color(0XFFD5D5D5),
-                    ),
-                    SizedBox(height: 8),
-                    ButtonComp(
-                      buttonText: "Preview",
-                      onPressed: () {
-                        // Navigate to the Previewgreeting page when the button is pressed
-                        Navigator.pushNamed(context, '/previewInvitations');
-                      },
-                    ),
-                  ],
+                            SizedBox(height: 15),
+                            Separator(
+                              height: 10,
+                              dashWidth: 6,
+                              dashSpace: 2,
+                              color: Color(0XFFD5D5D5),
+                            ),
+                            SizedBox(height: 12),
+                            InputComponent(
+                              hintText: "Write a message",
+                              controller: TextEditingController(),
+                              minLines: 4,
+                            ),
+                            SizedBox(height: 10),
+                            Container(
+                              width: double.infinity,
+                              child: Center(
+                                child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          border: Border(
+                                            bottom: BorderSide(
+                                              color: Color(0XFFF4622E),
+                                              width: 1.5,
+                                            ),
+                                          ),
+                                        ),
+                                        child: Text(
+                                          "Let Gftee ",
+                                          style: TextStyle(
+                                            fontFamily: "Bree",
+                                            fontSize: 14,
+                                            color: Color(0XFFF4622E),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(width: 2),
+                                      SvgPicture.asset(
+                                        "assets/Images/OrangeGftee.svg",
+                                        width: 20,
+                                        height: 20,
+                                      ),
+                                      SizedBox(width: 5),
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          border: Border(
+                                            bottom: BorderSide(
+                                              color: Color(0XFFF4622E),
+                                              width: 1.5,
+                                            ),
+                                          ),
+                                        ),
+                                        child: Text(
+                                          "Write",
+                                          style: TextStyle(
+                                            fontFamily: "Bree",
+                                            fontSize: 14,
+                                            color: Color(0XFFF4622E),
+                                          ),
+                                        ),
+                                      ),
+                                    ]),
+                              ),
+                            ),
+                            SizedBox(height: 18),
+                            ButtonComp(
+                              buttonText: "Next",
+                              onPressed: () {
+                                // Navigate to the Previewgreeting page when the button is pressed
+                                Navigator.pushNamed(
+                                    context, '/previewInvitations');
+                              },
+                            ),
+                          ])),
                 ),
-              ),
+              ],
             ),
           ),
         ),

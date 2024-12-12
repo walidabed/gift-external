@@ -39,9 +39,9 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/', // Set the initial route of your app
       routes: {
-        '/': (context) => Greetings(), // The Greetings page route
+        '/': (context) => Invitations(), // The Greetings page route
         '/previewGreetings': (context) => PreviewGreetings(),
-        '/Greatings': (context) => Invitations(),
+        '/Greatings': (context) => Greetings(),
         '/previewInvitations': (context) =>
             PreviewInvitations(), // Route to Previewgreeting
       },

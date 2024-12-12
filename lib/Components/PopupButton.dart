@@ -1,6 +1,4 @@
-// ignore_for_file: use_super_parameters
-
-import 'dart:ffi';
+// ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -17,7 +15,6 @@ class PopupButton extends StatelessWidget {
   final Color iconColor;
   final bool isSelected;
 
-  // Constructor
   const PopupButton({
     Key? key,
     required this.buttonText,
@@ -25,64 +22,66 @@ class PopupButton extends StatelessWidget {
     required this.icon,
     this.padding = const EdgeInsets.symmetric(horizontal: 0.0),
     this.width = double.infinity,
-    this.textColor = Colors.black,
+    this.textColor = Colors.white,
     this.borderColor = Colors.black,
-    this.backgroundColor = Colors.white,
-    this.iconColor = Colors.black,
+    this.backgroundColor = const Color(0xffF4622E),
+    this.iconColor = Colors.white,
     this.isSelected = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: width, // Button will take the full width of the container
+      width: width,
       padding: padding,
-      child: ElevatedButton.icon(
+      child: ElevatedButton(
         onPressed: onPressed,
-        icon: SvgPicture.asset(
-          'assets/Images/$icon.svg',
-        ),
-        label: Container(
-          width: double.infinity,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                buttonText,
-                style: TextStyle(
-                    color: textColor,
-                    fontFamily: "EthosNova",
-                    fontWeight: FontWeight.w500),
-              ),
-              isSelected
-                  ? Container(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: isSelected ? Colors.white : Colors.transparent,
-                        border: Border.all(
-                            color:
-                                isSelected ? Colors.black : Colors.transparent),
-                      ),
-                      padding: EdgeInsets.all(2),
-                      child: SvgPicture.asset(
-                        'assets/Images/check.svg',
-                        width: 12,
-                        height: 12,
-                      ),
-                    )
-                  : Container(),
-            ],
-          ),
-        ),
         style: ElevatedButton.styleFrom(
-          backgroundColor: backgroundColor, // Set background color to white
-          side: BorderSide(color: borderColor), // Border color
+          backgroundColor: backgroundColor,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10), // Border radius
+            borderRadius: BorderRadius.circular(10),
           ),
-          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
-          alignment: Alignment.centerLeft, // Align text and icon to the left
+          padding: const EdgeInsets.symmetric(vertical: 12),
           elevation: 0,
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SvgPicture.asset(
+              'assets/Images/$icon.svg',
+              color: iconColor,
+              width: 13,
+              height: 13,
+            ),
+            const SizedBox(height: 8), // Space between icon and text
+            SizedBox(width: 8),
+            Text(
+              buttonText,
+              style: TextStyle(
+                color: textColor,
+                fontFamily: "Bree",
+                fontWeight: FontWeight.w500,
+                fontSize: 12,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            if (isSelected) ...[
+              const SizedBox(height: 8),
+              Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.white,
+                ),
+                padding: const EdgeInsets.all(2),
+                child: SvgPicture.asset(
+                  'assets/Images/check.svg',
+                  width: 12,
+                  height: 12,
+                ),
+              ),
+            ],
+          ],
         ),
       ),
     );

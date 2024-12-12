@@ -1,3 +1,5 @@
+// ignore_for_file: use_super_parameters
+
 import 'package:flutter/material.dart';
 
 class InputComponent extends StatelessWidget {
@@ -10,6 +12,7 @@ class InputComponent extends StatelessWidget {
   final Color borderColor;
   final Color hintTextColor;
   final Color backgroundColor;
+  final int minLines;
 
   // Constructor
   const InputComponent({
@@ -19,10 +22,11 @@ class InputComponent extends StatelessWidget {
     this.keyboardType = TextInputType.text,
     this.padding = const EdgeInsets.symmetric(horizontal: 0.0),
     this.width = double.infinity,
-    this.textColor = Colors.black,
+    this.textColor = const Color(0xff808080),
     this.borderColor = Colors.black,
-    this.hintTextColor = Colors.black,
+    this.hintTextColor = const Color(0xff808080),
     this.backgroundColor = Colors.white,
+    this.minLines = 1,
   }) : super(key: key);
 
   @override
@@ -34,6 +38,8 @@ class InputComponent extends StatelessWidget {
         controller: controller,
         keyboardType: keyboardType,
         style: TextStyle(color: textColor, fontFamily: ""),
+        minLines: minLines,
+        maxLines: 5,
         decoration: InputDecoration(
           filled: true,
           fillColor: backgroundColor,
