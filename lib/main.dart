@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:test_flutter/Home.dart';
 import 'package:test_flutter/Invitations.dart';
 import 'package:test_flutter/PreviewGreeting.dart';
 import 'package:test_flutter/PreviewInvitations.dart';
@@ -39,9 +40,10 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/', // Set the initial route of your app
       routes: {
-        '/': (context) => Invitations(), // The Greetings page route
+        '/': (context) => Home(),
+        '/Invitations': (context) => Invitations(), // The Greetings page route
         '/previewGreetings': (context) => PreviewGreetings(),
-        '/Greatings': (context) => Greetings(),
+        '/Greetings': (context) => Greetings(),
         '/previewInvitations': (context) =>
             PreviewInvitations(), // Route to Previewgreeting
       },

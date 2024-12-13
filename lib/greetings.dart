@@ -10,7 +10,7 @@ import 'package:test_flutter/Components/InputComponent.dart';
 import 'package:test_flutter/Components/PopupButton.dart';
 import 'package:test_flutter/Components/Separator.dart';
 import 'package:test_flutter/Components/TextAreaComponent.dart';
-import 'package:test_flutter/Components/BlurredPopup.dart'; // Import the BlurredPopup
+import 'package:test_flutter/Components/BlurredPopup.dart';
 
 class Greetings extends StatefulWidget {
   const Greetings({super.key});
@@ -20,12 +20,12 @@ class Greetings extends StatefulWidget {
 }
 
 class _GreetingsState extends State<Greetings> {
-  String? selectedValue; // To hold the selected dropdown value
+  String? selectedValue;
   TextEditingController nameController = TextEditingController();
   TextEditingController messageController = TextEditingController();
   Object? selectedTemplate;
   int currentStep = 1;
-  // List of items for the dropdown
+
   List<String> dropdownItems = [
     'John Doe',
     'Jane Doe',
@@ -85,7 +85,6 @@ class _GreetingsState extends State<Greetings> {
 
   List<String> Categories = ['Hello', 'Good Day', 'Good Evening', 'Good Night'];
 
-  // Function to show the BlurredPopup
   void _showPopupAi() {
     showDialog(
       context: context,
@@ -110,7 +109,7 @@ class _GreetingsState extends State<Greetings> {
               ButtonComp(
                 buttonText: "Generate",
                 onPressed: () {
-                  Navigator.of(context).pop(); // Close the popup
+                  Navigator.of(context).pop();
                 },
               )
             ],
@@ -163,7 +162,7 @@ class _GreetingsState extends State<Greetings> {
               ButtonComp(
                 buttonText: "Use",
                 onPressed: () {
-                  Navigator.of(context).pop(); // Close the popup
+                  Navigator.of(context).pop();
                 },
               )
             ],
@@ -182,6 +181,19 @@ class _GreetingsState extends State<Greetings> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text(
+                  'Select Receipient',
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontFamily: 'Bree',
+                  ),
+                ),
+              ),
+              SizedBox(height: 10),
               CircleDropdownComp(
                 items: ["Family", "Work", "Friends"],
                 hintText: "Your Circles",
@@ -193,7 +205,7 @@ class _GreetingsState extends State<Greetings> {
               ButtonComp(
                 buttonText: "Done",
                 onPressed: () {
-                  Navigator.of(context).pop(); // Close the popup
+                  Navigator.of(context).pop();
                 },
               )
             ],
@@ -228,7 +240,7 @@ class _GreetingsState extends State<Greetings> {
               ButtonComp(
                 buttonText: "Done",
                 onPressed: () {
-                  Navigator.of(context).pop(); // Close the popup
+                  Navigator.of(context).pop();
                 },
               )
             ],
@@ -259,7 +271,6 @@ class _GreetingsState extends State<Greetings> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Row with text
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
@@ -268,19 +279,22 @@ class _GreetingsState extends State<Greetings> {
                               width: 25,
                               height: 25,
                             ),
-                            const SizedBox(width: 5), // gap
-                            const Text(
-                              'Greetings',
-                              style: TextStyle(
-                                fontSize: 22,
-                                fontFamily: 'Bree',
+                            const SizedBox(width: 5),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamed(context, '/');
+                              },
+                              child: const Text(
+                                'Greetings',
+                                style: TextStyle(
+                                  fontSize: 22,
+                                  fontFamily: 'Bree',
+                                ),
                               ),
-                            ),
+                            )
                           ],
                         ),
-                        const SizedBox(
-                            height: 20), // Add space between text and dropdown
-
+                        const SizedBox(height: 20),
                         InputComponent(
                             hintText: "Event name (e.g., Birthday Party)",
                             controller: TextEditingController()),
@@ -359,7 +373,6 @@ class _GreetingsState extends State<Greetings> {
                                       ),
                                     ),
                                   ),
-                                  // Add a gap after every item except the last
                                   if (index < templates.length - 1)
                                     SizedBox(width: 10),
                                 ],
@@ -441,6 +454,8 @@ class _GreetingsState extends State<Greetings> {
                               Container(
                                 width: double.infinity,
                                 child: Center(
+                                    child: GestureDetector(
+                                  onTap: () => {_showPopupAi()},
                                   child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
@@ -491,7 +506,7 @@ class _GreetingsState extends State<Greetings> {
                                           ),
                                         ),
                                       ]),
-                                ),
+                                )),
                               ),
                               SizedBox(height: 18),
                               ButtonComp(

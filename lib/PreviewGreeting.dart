@@ -47,13 +47,18 @@ class _PreviewGreetingsState extends State<PreviewGreetings> {
                           height: 25,
                         ),
                         const SizedBox(width: 5), // gap
-                        const Text(
-                          'Greetings',
-                          style: TextStyle(
-                            fontSize: 22,
-                            fontFamily: 'Bree',
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pushNamed(context, '/Greetings');
+                          },
+                          child: const Text(
+                            'Greetings',
+                            style: TextStyle(
+                              fontSize: 22,
+                              fontFamily: 'Bree',
+                            ),
                           ),
-                        ),
+                        )
                       ],
                     ),
                     const SizedBox(

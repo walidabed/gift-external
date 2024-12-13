@@ -38,6 +38,9 @@ dependencies:
   dropdown_button2: ^2.3.9
   flutter_svg: ^2.0.16
   intl: ^0.20.1
+  google_maps_flutter: ^2.10.0
+  flutter_map: ^7.0.2
+  latlong2: ^0.9.1
 
 dev_dependencies:
   flutter_test:

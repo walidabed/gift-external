@@ -47,13 +47,18 @@ class _PreviewInvitationsState extends State<PreviewInvitations> {
                           height: 25,
                         ),
                         const SizedBox(width: 5), // gap
-                        const Text(
-                          'Invitation',
-                          style: TextStyle(
-                            fontSize: 22,
-                            fontFamily: 'Bree',
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pushNamed(context, '/Invitations');
+                          },
+                          child: const Text(
+                            'Invitations',
+                            style: TextStyle(
+                              fontSize: 22,
+                              fontFamily: 'Bree',
+                            ),
                           ),
-                        ),
+                        )
                       ],
                     ),
                     const SizedBox(

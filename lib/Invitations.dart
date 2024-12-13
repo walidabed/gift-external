@@ -1,7 +1,9 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_interpolation_to_compose_strings, sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:test_flutter/Components/ButtonComp.dart';
 import 'package:test_flutter/Components/CircleDropdownComp.dart';
 import 'package:test_flutter/Components/DropDownReceipients.dart';
@@ -10,7 +12,7 @@ import 'package:test_flutter/Components/InputComponent.dart';
 import 'package:test_flutter/Components/PopupButton.dart';
 import 'package:test_flutter/Components/Separator.dart';
 import 'package:test_flutter/Components/TextAreaComponent.dart';
-import 'package:test_flutter/Components/BlurredPopup.dart'; // Import the BlurredPopup
+import 'package:test_flutter/Components/BlurredPopup.dart';
 
 class Invitations extends StatefulWidget {
   const Invitations({super.key});
@@ -20,12 +22,13 @@ class Invitations extends StatefulWidget {
 }
 
 class _InvitationsState extends State<Invitations> {
-  String? selectedValue; // To hold the selected dropdown value
+  String? selectedValue;
   TextEditingController nameController = TextEditingController();
   TextEditingController messageController = TextEditingController();
   Object? selectedTemplate;
   int currentStep = 1;
-  // List of items for the dropdown
+  DateTime? selectedDate;
+
   List<String> dropdownItems = [
     'John Doe',
     'Jane Doe',
@@ -85,7 +88,6 @@ class _InvitationsState extends State<Invitations> {
 
   List<String> Categories = ['Hello', 'Good Day', 'Good Evening', 'Good Night'];
 
-  // Function to show the BlurredPopup
   void _showPopupAi() {
     showDialog(
       context: context,
@@ -110,7 +112,7 @@ class _InvitationsState extends State<Invitations> {
               ButtonComp(
                 buttonText: "Generate",
                 onPressed: () {
-                  Navigator.of(context).pop(); // Close the popup
+                  Navigator.of(context).pop();
                 },
               )
             ],
@@ -163,7 +165,7 @@ class _InvitationsState extends State<Invitations> {
               ButtonComp(
                 buttonText: "Use",
                 onPressed: () {
-                  Navigator.of(context).pop(); // Close the popup
+                  Navigator.of(context).pop();
                 },
               )
             ],
@@ -182,6 +184,19 @@ class _InvitationsState extends State<Invitations> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text(
+                  'Select Receipients',
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontFamily: 'Bree',
+                  ),
+                ),
+              ),
+              SizedBox(height: 10),
               CircleDropdownComp(
                 items: ["Family", "Work", "Friends"],
                 hintText: "Your Circles",
@@ -196,7 +211,7 @@ class _InvitationsState extends State<Invitations> {
               ButtonComp(
                 buttonText: "Done",
                 onPressed: () {
-                  Navigator.of(context).pop(); // Close the popup
+                  Navigator.of(context).pop();
                 },
               )
             ],
@@ -231,10 +246,65 @@ class _InvitationsState extends State<Invitations> {
               ButtonComp(
                 buttonText: "Done",
                 onPressed: () {
-                  Navigator.of(context).pop(); // Close the popup
+                  Navigator.of(context).pop();
                 },
               )
             ],
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _showDatePickerDialog() async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: selectedDate ?? DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: ThemeData.light().copyWith(
+            primaryColor: Color(0xffF4622E),
+            primaryColorDark: Color(0xffD1481B),
+            buttonTheme: ButtonThemeData(
+              textTheme: ButtonTextTheme.primary,
+            ),
+            colorScheme: ColorScheme.light(
+              primary: Color(0xffF4622E),
+              onPrimary: Colors.white,
+            ),
+          ),
+          child: child!,
+        );
+      },
+    );
+
+    if (pickedDate != null && pickedDate != selectedDate) {
+      setState(() {
+        selectedDate = pickedDate;
+      });
+    }
+  }
+
+  void _showMapDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          child: SizedBox(
+            width: double.infinity,
+            height: MediaQuery.of(context).size.height * 0.8,
+            child: FlutterMap(
+              options: MapOptions(),
+              children: [
+                TileLayer(
+                  urlTemplate:
+                      'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                  subdomains: ['a', 'b', 'c'],
+                ),
+              ],
+            ),
           ),
         );
       },
@@ -262,7 +332,6 @@ class _InvitationsState extends State<Invitations> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Row with text
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
@@ -271,19 +340,22 @@ class _InvitationsState extends State<Invitations> {
                               width: 25,
                               height: 25,
                             ),
-                            const SizedBox(width: 5), // gap
-                            const Text(
-                              'Invitations',
-                              style: TextStyle(
-                                fontSize: 22,
-                                fontFamily: 'Bree',
+                            const SizedBox(width: 5),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamed(context, '/');
+                              },
+                              child: const Text(
+                                'Invitations',
+                                style: TextStyle(
+                                  fontSize: 22,
+                                  fontFamily: 'Bree',
+                                ),
                               ),
-                            ),
+                            )
                           ],
                         ),
-                        const SizedBox(
-                            height: 20), // Add space between text and dropdown
-
+                        const SizedBox(height: 20),
                         InputComponent(
                             hintText: "Event name (e.g., Birthday Party)",
                             controller: TextEditingController()),
@@ -362,7 +434,6 @@ class _InvitationsState extends State<Invitations> {
                                       ),
                                     ),
                                   ),
-                                  // Add a gap after every item except the last
                                   if (index < templates.length - 1)
                                     SizedBox(width: 10),
                                 ],
@@ -444,56 +515,59 @@ class _InvitationsState extends State<Invitations> {
                               Container(
                                 width: double.infinity,
                                 child: Center(
-                                  child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            border: Border(
-                                              bottom: BorderSide(
+                                  child: GestureDetector(
+                                    onTap: () => {_showPopupAi()},
+                                    child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Container(
+                                            decoration: BoxDecoration(
+                                              border: Border(
+                                                bottom: BorderSide(
+                                                  color: Color(0XFFF4622E),
+                                                  width: 1.5,
+                                                ),
+                                              ),
+                                            ),
+                                            child: Text(
+                                              "Let Gftee ",
+                                              style: TextStyle(
+                                                fontFamily: "Bree",
+                                                fontSize: 14,
                                                 color: Color(0XFFF4622E),
-                                                width: 1.5,
                                               ),
                                             ),
                                           ),
-                                          child: Text(
-                                            "Let Gftee ",
-                                            style: TextStyle(
-                                              fontFamily: "Bree",
-                                              fontSize: 14,
-                                              color: Color(0XFFF4622E),
-                                            ),
+                                          SizedBox(width: 2),
+                                          SvgPicture.asset(
+                                            "assets/Images/OrangeGftee.svg",
+                                            width: 20,
+                                            height: 20,
                                           ),
-                                        ),
-                                        SizedBox(width: 2),
-                                        SvgPicture.asset(
-                                          "assets/Images/OrangeGftee.svg",
-                                          width: 20,
-                                          height: 20,
-                                        ),
-                                        SizedBox(width: 5),
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            border: Border(
-                                              bottom: BorderSide(
+                                          SizedBox(width: 5),
+                                          Container(
+                                            decoration: BoxDecoration(
+                                              border: Border(
+                                                bottom: BorderSide(
+                                                  color: Color(0XFFF4622E),
+                                                  width: 1.5,
+                                                ),
+                                              ),
+                                            ),
+                                            child: Text(
+                                              "Write",
+                                              style: TextStyle(
+                                                fontFamily: "Bree",
+                                                fontSize: 14,
                                                 color: Color(0XFFF4622E),
-                                                width: 1.5,
                                               ),
                                             ),
                                           ),
-                                          child: Text(
-                                            "Write",
-                                            style: TextStyle(
-                                              fontFamily: "Bree",
-                                              fontSize: 14,
-                                              color: Color(0XFFF4622E),
-                                            ),
-                                          ),
-                                        ),
-                                      ]),
+                                        ]),
+                                  ),
                                 ),
                               ),
                               SizedBox(height: 18),
@@ -546,7 +620,7 @@ class _InvitationsState extends State<Invitations> {
                               PopupButton(
                                 buttonText: "Select Date",
                                 onPressed: () {
-                                  _showPopupReceipients();
+                                  _showDatePickerDialog();
                                 },
                                 width: double.infinity,
                                 icon: "calendar-check",
@@ -558,7 +632,9 @@ class _InvitationsState extends State<Invitations> {
                               SizedBox(height: 10),
                               PopupButton(
                                 buttonText: "Location",
-                                onPressed: () {},
+                                onPressed: () {
+                                  _showMapDialog();
+                                },
                                 width: double.infinity,
                                 icon: "map-pin",
                                 backgroundColor: Color(0xffFFE8DB),
