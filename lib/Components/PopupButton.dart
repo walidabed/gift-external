@@ -6,7 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 class PopupButton extends StatelessWidget {
   final String buttonText;
   final VoidCallback onPressed;
-  final String icon;
+  final String? icon; // Make the icon optional by using nullable String
   final EdgeInsetsGeometry padding;
   final double width;
   final Color textColor;
@@ -19,11 +19,11 @@ class PopupButton extends StatelessWidget {
     Key? key,
     required this.buttonText,
     required this.onPressed,
-    required this.icon,
+    this.icon, // The icon parameter is now optional
     this.padding = const EdgeInsets.symmetric(horizontal: 0.0),
     this.width = double.infinity,
     this.textColor = Colors.white,
-    this.borderColor = Colors.black,
+    this.borderColor = const Color(0xffF4622E),
     this.backgroundColor = const Color(0xffF4622E),
     this.iconColor = Colors.white,
     this.isSelected = false,
@@ -37,6 +37,7 @@ class PopupButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
+          side: BorderSide(color: borderColor, width: 1.5),
           backgroundColor: backgroundColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
@@ -48,14 +49,16 @@ class PopupButton extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SvgPicture.asset(
-              'assets/Images/$icon.svg',
-              color: iconColor,
-              width: 13,
-              height: 13,
-            ),
-            const SizedBox(height: 8), // Space between icon and text
-            SizedBox(width: 8),
+            // Check if the icon is provided and display it if it is
+            if (icon != null) ...[
+              SvgPicture.asset(
+                'assets/Images/$icon.svg',
+                color: iconColor,
+                width: 13,
+                height: 13,
+              ),
+              const SizedBox(width: 8), // Space between icon and text
+            ],
             Text(
               buttonText,
               style: TextStyle(
@@ -67,7 +70,7 @@ class PopupButton extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             if (isSelected) ...[
-              const SizedBox(height: 8),
+              const SizedBox(width: 8),
               Container(
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,

@@ -1,9 +1,11 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_interpolation_to_compose_strings
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_interpolation_to_compose_strings, sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:test_flutter/Components/ButtonComp.dart';
+import 'package:test_flutter/Components/CircleDropdownComp.dart';
 import 'package:test_flutter/Components/DropDownReceipients.dart';
+import 'package:test_flutter/Components/FriendsDropdownComp.dart';
 import 'package:test_flutter/Components/InputComponent.dart';
 import 'package:test_flutter/Components/PopupButton.dart';
 import 'package:test_flutter/Components/Separator.dart';
@@ -21,7 +23,8 @@ class _InvitationsState extends State<Invitations> {
   String? selectedValue; // To hold the selected dropdown value
   TextEditingController nameController = TextEditingController();
   TextEditingController messageController = TextEditingController();
-
+  Object? selectedTemplate;
+  int currentStep = 1;
   // List of items for the dropdown
   List<String> dropdownItems = [
     'John Doe',
@@ -32,38 +35,47 @@ class _InvitationsState extends State<Invitations> {
 
   final List<Map<String, String>> templates = [
     {
+      "id": "1",
       "name": "Birthday",
       "image": "assets/Images/imageTest.jpeg",
     },
     {
+      "id": "2",
       "name": "Good Day",
       "image": "assets/Images/imageTest.jpeg",
     },
     {
+      "id": "3",
       "name": "Good Evening",
       "image": "assets/Images/imageTest.jpeg",
     },
     {
+      "id": "4",
       "name": "Good Night",
       "image": "assets/Images/imageTest.jpeg",
     },
     {
+      "id": "5",
       "name": "Good Night",
       "image": "assets/Images/imageTest.jpeg",
     },
     {
+      "id": "6",
       "name": "Good Night",
       "image": "assets/Images/imageTest.jpeg",
     },
     {
+      "id": "7",
       "name": "Good Night",
       "image": "assets/Images/imageTest.jpeg",
     },
     {
+      "id": "8",
       "name": "Good Night",
       "image": "assets/Images/imageTest.jpeg",
     },
     {
+      "id": "9",
       "name": "Good Night",
       "image": "assets/Images/imageTest.jpeg",
     },
@@ -102,83 +114,6 @@ class _InvitationsState extends State<Invitations> {
                 },
               )
             ],
-          ),
-        );
-      },
-    );
-  }
-
-  void _showPopupTemplates() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return BlurredPopup(
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  'Gift Templates',
-                  style: TextStyle(fontSize: 22, fontFamily: "Bree"),
-                ),
-                SizedBox(height: 20),
-                DropDownReceipients(
-                  items: Categories,
-                  selectedValue: selectedCategory,
-                  onChanged: (value) =>
-                      setState(() => selectedCategory = value),
-                  hint: "Choose Category",
-                ),
-                SizedBox(height: 20),
-                // Using the ListView to wrap GridView to make height dynamic
-                GridView.builder(
-                  shrinkWrap:
-                      true, // Make the GridView take only as much space as it needs
-                  physics:
-                      NeverScrollableScrollPhysics(), // Disable internal scrolling
-                  itemCount: templates.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3, // Number of images per row
-                    crossAxisSpacing: 10, // Spacing between columns
-                    mainAxisSpacing: 10, // Spacing between rows
-                  ),
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      child: Column(
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color: Colors.black,
-                              ),
-                              borderRadius: BorderRadius.circular(
-                                  15), // Rounded corners for the container
-                            ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(
-                                  15), // Apply the same radius to the image
-                              child: Image.asset(
-                                "assets/Images/imageTest.jpeg", // Load JPEG image from assets
-                                fit: BoxFit
-                                    .cover, // Fill the container and preserve aspect ratio
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    );
-                  },
-                ),
-                SizedBox(height: 20),
-                ButtonComp(
-                  buttonText: "Use",
-                  onPressed: () {
-                    Navigator.of(context).pop(); // Close the popup
-                  },
-                ),
-              ],
-            ),
           ),
         );
       },
@@ -227,6 +162,74 @@ class _InvitationsState extends State<Invitations> {
               SizedBox(height: 20),
               ButtonComp(
                 buttonText: "Use",
+                onPressed: () {
+                  Navigator.of(context).pop(); // Close the popup
+                },
+              )
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  void _showPopupReceipients() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return BlurredPopup(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              CircleDropdownComp(
+                items: ["Family", "Work", "Friends"],
+                hintText: "Your Circles",
+                isMulti: true,
+              ),
+              FriendsDropdownComp(
+                items: ["John Doe", "Jane Doe", "John Smith", "Jane Smith"],
+                hintText: "Your Friends",
+                isMulti: true,
+              ),
+              SizedBox(height: 20),
+              ButtonComp(
+                buttonText: "Done",
+                onPressed: () {
+                  Navigator.of(context).pop(); // Close the popup
+                },
+              )
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  void _showPopupFiltartion() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return BlurredPopup(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text("Filter By",
+                  style: TextStyle(fontSize: 22, fontFamily: "Bree")),
+              FriendsDropdownComp(items: [
+                "Birthday",
+                "Ramadan",
+                "Mothers Day",
+                "Christmas",
+                "Teachers Day"
+              ], hintText: " Type"),
+              FriendsDropdownComp(
+                  items: ["Red", "Blue", "Green", "Purple", "Yellow", "Black"],
+                  hintText: "Color"),
+              SizedBox(height: 20),
+              ButtonComp(
+                buttonText: "Done",
                 onPressed: () {
                   Navigator.of(context).pop(); // Close the popup
                 },
@@ -302,7 +305,9 @@ class _InvitationsState extends State<Invitations> {
                               Row(
                                 children: [
                                   GestureDetector(
-                                    onTap: () {},
+                                    onTap: () {
+                                      _showPopupFiltartion();
+                                    },
                                     child: SvgPicture.asset(
                                       'assets/Images/sliders-horizontal.svg',
                                       width: 20,
@@ -311,7 +316,10 @@ class _InvitationsState extends State<Invitations> {
                                   ),
                                   SizedBox(width: 15),
                                   GestureDetector(
-                                    onTap: () {},
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                          context, '/previewInvitations');
+                                    },
                                     child: SvgPicture.asset(
                                       'assets/Images/scan-eye.svg',
                                       width: 20,
@@ -328,18 +336,29 @@ class _InvitationsState extends State<Invitations> {
                             children: List.generate(templates.length, (index) {
                               return Row(
                                 children: [
-                                  Container(
-                                    width: 90,
-                                    height: 140,
-                                    decoration: BoxDecoration(
-                                      color: Colors.grey[300],
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(15),
-                                      child: Image.asset(
-                                        "assets/Images/imageTest.jpeg",
-                                        fit: BoxFit.cover,
+                                  GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        selectedTemplate = index;
+                                      });
+                                    },
+                                    child: Container(
+                                      width: 90,
+                                      height: 140,
+                                      decoration: BoxDecoration(
+                                        border: selectedTemplate == index
+                                            ? Border.all(
+                                                color: Colors.black, width: 1.5)
+                                            : null,
+                                        color: Colors.grey[300],
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(15),
+                                        child: Image.asset(
+                                          "assets/Images/imageTest.jpeg",
+                                          fit: BoxFit.cover,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -368,7 +387,7 @@ class _InvitationsState extends State<Invitations> {
                                 buttonText: 'Upload',
                                 width:
                                     MediaQuery.of(context).size.width * 0.385,
-                                onPressed: _showPopupTemplates,
+                                onPressed: _showPopupUpload,
                                 icon: "upload",
                               ),
                             ]),
@@ -377,111 +396,256 @@ class _InvitationsState extends State<Invitations> {
                   ),
                 ),
                 SizedBox(height: 20),
-                Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Padding(
-                      padding: const EdgeInsets.all(20),
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(height: 8),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text("Event Details",
-                                    style: TextStyle(
-                                        fontFamily: "Bree", fontSize: 16)),
-                                Text("Step" + " 2 " + "of 2",
-                                    style: TextStyle(
-                                        fontFamily: "EthosNova",
-                                        fontSize: 12,
-                                        color: Color(0xff808080)))
-                              ],
-                            ),
-                            SizedBox(height: 15),
-                            Separator(
-                              height: 10,
-                              dashWidth: 6,
-                              dashSpace: 2,
-                              color: Color(0XFFD5D5D5),
-                            ),
-                            SizedBox(height: 12),
-                            InputComponent(
-                              hintText: "Write a message",
-                              controller: TextEditingController(),
-                              minLines: 4,
-                            ),
-                            SizedBox(height: 10),
-                            Container(
-                              width: double.infinity,
-                              child: Center(
-                                child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          border: Border(
-                                            bottom: BorderSide(
-                                              color: Color(0XFFF4622E),
-                                              width: 1.5,
-                                            ),
-                                          ),
-                                        ),
-                                        child: Text(
-                                          "Let Gftee ",
-                                          style: TextStyle(
-                                            fontFamily: "Bree",
-                                            fontSize: 14,
-                                            color: Color(0XFFF4622E),
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(width: 2),
-                                      SvgPicture.asset(
-                                        "assets/Images/OrangeGftee.svg",
-                                        width: 20,
-                                        height: 20,
-                                      ),
-                                      SizedBox(width: 5),
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          border: Border(
-                                            bottom: BorderSide(
-                                              color: Color(0XFFF4622E),
-                                              width: 1.5,
-                                            ),
-                                          ),
-                                        ),
-                                        child: Text(
-                                          "Write",
-                                          style: TextStyle(
-                                            fontFamily: "Bree",
-                                            fontSize: 14,
-                                            color: Color(0XFFF4622E),
-                                          ),
-                                        ),
-                                      ),
-                                    ]),
+                if (currentStep == 1)
+                  Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(height: 8),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text("Event Details",
+                                      style: TextStyle(
+                                          fontFamily: "Bree", fontSize: 16)),
+                                  Text(
+                                      "Step " +
+                                          currentStep.toString() +
+                                          " of 3",
+                                      style: TextStyle(
+                                          fontFamily: "EthosNova",
+                                          fontSize: 12,
+                                          color: Color(0xff808080)))
+                                ],
                               ),
-                            ),
-                            SizedBox(height: 18),
-                            ButtonComp(
-                              buttonText: "Next",
-                              onPressed: () {
-                                // Navigate to the Previewgreeting page when the button is pressed
-                                Navigator.pushNamed(
-                                    context, '/previewInvitations');
-                              },
-                            ),
-                          ])),
-                ),
+                              SizedBox(height: 15),
+                              Separator(
+                                height: 10,
+                                dashWidth: 6,
+                                dashSpace: 2,
+                                color: Color(0XFFD5D5D5),
+                              ),
+                              SizedBox(height: 12),
+                              InputComponent(
+                                hintText: "Write a message",
+                                controller: TextEditingController(),
+                                minLines: 4,
+                              ),
+                              SizedBox(height: 10),
+                              Container(
+                                width: double.infinity,
+                                child: Center(
+                                  child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            border: Border(
+                                              bottom: BorderSide(
+                                                color: Color(0XFFF4622E),
+                                                width: 1.5,
+                                              ),
+                                            ),
+                                          ),
+                                          child: Text(
+                                            "Let Gftee ",
+                                            style: TextStyle(
+                                              fontFamily: "Bree",
+                                              fontSize: 14,
+                                              color: Color(0XFFF4622E),
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(width: 2),
+                                        SvgPicture.asset(
+                                          "assets/Images/OrangeGftee.svg",
+                                          width: 20,
+                                          height: 20,
+                                        ),
+                                        SizedBox(width: 5),
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            border: Border(
+                                              bottom: BorderSide(
+                                                color: Color(0XFFF4622E),
+                                                width: 1.5,
+                                              ),
+                                            ),
+                                          ),
+                                          child: Text(
+                                            "Write",
+                                            style: TextStyle(
+                                              fontFamily: "Bree",
+                                              fontSize: 14,
+                                              color: Color(0XFFF4622E),
+                                            ),
+                                          ),
+                                        ),
+                                      ]),
+                                ),
+                              ),
+                              SizedBox(height: 18),
+                              ButtonComp(
+                                buttonText: "Next",
+                                onPressed: () {
+                                  setState(() {
+                                    currentStep = 2;
+                                  });
+                                },
+                              ),
+                            ])),
+                  ),
+                if (currentStep == 2)
+                  Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(height: 8),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text("Event Details",
+                                      style: TextStyle(
+                                          fontFamily: "Bree", fontSize: 16)),
+                                  Text("Step" + " 2 " + "of 3",
+                                      style: TextStyle(
+                                          fontFamily: "EthosNova",
+                                          fontSize: 12,
+                                          color: Color(0xff808080)))
+                                ],
+                              ),
+                              SizedBox(height: 15),
+                              Separator(
+                                height: 10,
+                                dashWidth: 6,
+                                dashSpace: 2,
+                                color: Color(0XFFD5D5D5),
+                              ),
+                              SizedBox(height: 12),
+                              PopupButton(
+                                buttonText: "Select Date",
+                                onPressed: () {
+                                  _showPopupReceipients();
+                                },
+                                width: double.infinity,
+                                icon: "calendar-check",
+                                backgroundColor: Color(0xffFFE8DB),
+                                textColor: Color(0xffF4622E),
+                                iconColor: Color(0xffF4622E),
+                                borderColor: Color(0xffF4622E),
+                              ),
+                              SizedBox(height: 10),
+                              PopupButton(
+                                buttonText: "Location",
+                                onPressed: () {},
+                                width: double.infinity,
+                                icon: "map-pin",
+                                backgroundColor: Color(0xffFFE8DB),
+                                textColor: Color(0xffF4622E),
+                                iconColor: Color(0xffF4622E),
+                                borderColor: Color(0xffF4622E),
+                              ),
+                              SizedBox(height: 60),
+                              ButtonComp(
+                                buttonText: "Next",
+                                onPressed: () {
+                                  setState(() {
+                                    currentStep = 3;
+                                  });
+                                },
+                              ),
+                            ])),
+                  ),
+                if (currentStep == 3)
+                  Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(height: 8),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text("Event Details",
+                                      style: TextStyle(
+                                          fontFamily: "Bree", fontSize: 16)),
+                                  Text("Step" + " 3 " + "of 3",
+                                      style: TextStyle(
+                                          fontFamily: "EthosNova",
+                                          fontSize: 12,
+                                          color: Color(0xff808080)))
+                                ],
+                              ),
+                              SizedBox(height: 15),
+                              Separator(
+                                height: 10,
+                                dashWidth: 6,
+                                dashSpace: 2,
+                                color: Color(0XFFD5D5D5),
+                              ),
+                              SizedBox(height: 12),
+                              PopupButton(
+                                buttonText: "Select Receipient",
+                                onPressed: () {
+                                  _showPopupReceipients();
+                                },
+                                width: double.infinity,
+                                icon: "user-round-plus",
+                                backgroundColor: Color(0xffFFE8DB),
+                                textColor: Color(0xffF4622E),
+                                iconColor: Color(0xffF4622E),
+                                borderColor: Color(0xffF4622E),
+                              ),
+                              SizedBox(height: 10),
+                              PopupButton(
+                                buttonText: "Add a Wishlist",
+                                onPressed: () {},
+                                width: double.infinity,
+                                icon: "heart",
+                                backgroundColor: Color(0xffFFE8DB),
+                                textColor: Color(0xffF4622E),
+                                iconColor: Color(0xffF4622E),
+                                borderColor: Color(0xffF4622E),
+                              ),
+                              SizedBox(height: 60),
+                              ButtonComp(
+                                buttonText: "Next",
+                                onPressed: () {
+                                  Navigator.pushNamed(
+                                      context, '/previewInvitations');
+                                },
+                              ),
+                            ])),
+                  ),
               ],
             ),
           ),
