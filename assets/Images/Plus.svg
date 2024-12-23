@@ -1,0 +1,10 @@
+<svg id="Component_2_1" data-name="Component 2 – 1" xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15">
+  <g id="Rectangle_2224" data-name="Rectangle 2224" fill="none" stroke="#eaeaf8" stroke-width="1">
+    <rect width="16" height="15" rx="5" stroke="none"/>
+    <rect x="0.5" y="0.5" width="15" height="14" rx="4.5" fill="none"/>
+  </g>
+  <g id="x" transform="translate(8 4.748) rotate(45)">
+    <path id="Path_40866" data-name="Path 40866" d="M3.951,0,0,3.951" transform="translate(0 0)" fill="none" stroke="#2b2b2b" stroke-linecap="square" stroke-linejoin="round" stroke-width="1"/>
+    <path id="Path_40867" data-name="Path 40867" d="M0,0,3.951,3.951" transform="translate(0 0)" fill="none" stroke="#2b2b2b" stroke-linecap="square" stroke-linejoin="round" stroke-width="1"/>
+  </g>
+</svg>

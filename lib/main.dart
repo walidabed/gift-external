@@ -5,6 +5,7 @@ import 'package:test_flutter/Home.dart';
 import 'package:test_flutter/Invitations.dart';
 import 'package:test_flutter/PreviewGreeting.dart';
 import 'package:test_flutter/PreviewInvitations.dart';
+import 'package:test_flutter/ReceivedInvitations.dart';
 import 'package:test_flutter/greetings.dart';
 
 void main() {
@@ -43,6 +44,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => Home(),
         '/Invitations': (context) => Invitations(), // The Greetings page route
         '/previewGreetings': (context) => PreviewGreetings(),
+        '/ReceivedInvitations': (context) => ReceivedInvitations(),
         '/Greetings': (context) => Greetings(),
         '/previewInvitations': (context) =>
             PreviewInvitations(), // Route to Previewgreeting
