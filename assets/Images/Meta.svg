@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="44" height="44" viewBox="0 0 44 44">
+  <defs>
+    <clipPath id="clip-path">
+      <path id="Path_41464" data-name="Path 41464" d="M112.5,87.938h27.622v18.369H112.5Zm0,0"/>
+    </clipPath>
+  </defs>
+  <g id="Group_39598" data-name="Group 39598" transform="translate(-218.25 -297.372)">
+    <g id="Ellipse_412" data-name="Ellipse 412" transform="translate(218.25 297.372)" fill="#fff" stroke="rgba(43,43,43,0.1)" stroke-width="1">
+      <circle cx="22" cy="22" r="22" stroke="none"/>
+      <circle cx="22" cy="22" r="21.5" fill="none"/>
+    </g>
+    <g id="Black_White_Elegant_Minimalist_Monogram_Logo" data-name="Black White Elegant Minimalist Monogram Logo" transform="translate(9.939 272.25)">
+      <g id="Group_39597" data-name="Group 39597" transform="translate(104 -50)" clip-path="url(#clip-path)">
+        <path id="Path_41463" data-name="Path 41463" d="M115.6,100.033c0-4.5,2.237-9.1,4.907-9.1,1.444,0,2.651.836,4.5,3.488-1.756,2.7-2.821,4.391-2.821,4.391-2.339,3.674-3.149,4.5-4.45,4.5-1.341,0-2.137-1.178-2.137-3.282m15.417-1.679-1.616-2.7q-.657-1.069-1.26-1.969c1.458-2.254,2.662-3.378,4.094-3.378,2.972,0,5.354,4.383,5.354,9.768,0,2.051-.67,3.243-2.061,3.243-1.332,0-1.969-.882-4.5-4.96M126.8,91.812c-2.2-2.807-4.039-3.877-6.242-3.877-4.489,0-7.929,5.853-7.929,12.047,0,3.876,1.872,6.322,5.007,6.322,2.257,0,3.88-1.066,6.772-6.118l2-3.6c.654,1.058,1.065,1.773,2.27,3.8,2.636,4.417,4.1,5.917,6.771,5.917,3.055,0,4.754-2.479,4.754-6.435,0-6.486-3.516-11.934-7.788-11.934-2.263,0-4.032,1.707-5.632,3.876" transform="translate(-0.102 0.003)" fill="#64b8b1"/>
+      </g>
+    </g>
+  </g>
+</svg>

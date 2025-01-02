@@ -13,6 +13,8 @@ class InputComponent extends StatelessWidget {
   final Color hintTextColor;
   final Color backgroundColor;
   final int minLines;
+  final double radius;
+  final double activeRadius;
 
   // Constructor
   const InputComponent({
@@ -27,6 +29,8 @@ class InputComponent extends StatelessWidget {
     this.hintTextColor = const Color(0xff808080),
     this.backgroundColor = Colors.white,
     this.minLines = 1,
+    this.radius = 10,
+    this.activeRadius = 8,
   }) : super(key: key);
 
   @override
@@ -52,11 +56,11 @@ class InputComponent extends StatelessWidget {
           contentPadding: const EdgeInsets.fromLTRB(20, 12, 20, 12),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: borderColor),
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(radius),
           ),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: borderColor, width: 2),
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(activeRadius),
           ),
         ),
       ),

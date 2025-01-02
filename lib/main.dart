@@ -1,6 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:test_flutter/Auth/reset-pass.dart';
+import 'package:test_flutter/Auth/sign-in.dart';
+import 'package:test_flutter/Auth/sign-up.dart';
+import 'package:test_flutter/Auth/terms-conditions.dart';
 import 'package:test_flutter/Home.dart';
 import 'package:test_flutter/Invitations.dart';
 import 'package:test_flutter/PreviewGreeting.dart';
@@ -41,7 +45,11 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/', // Set the initial route of your app
       routes: {
-        '/': (context) => Home(),
+        '/': (context) => SignIn(),
+        '/sign-up': (context) => SignUp(),
+        '/terms-conditions': (context) => Terms(),
+        '/reset-pass': (context) => ResetPass(),
+        '/home': (context) => Home(),
         '/Invitations': (context) => Invitations(), // The Greetings page route
         '/previewGreetings': (context) => PreviewGreetings(),
         '/ReceivedInvitations': (context) => ReceivedInvitations(),

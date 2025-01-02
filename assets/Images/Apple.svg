@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="44" height="44" viewBox="0 0 44 44">
+  <defs>
+    <clipPath id="clip-path">
+      <path id="Path_40441" data-name="Path 40441" d="M251,421h20.969v16.613H251Zm0,0" transform="translate(-251 -421)"/>
+    </clipPath>
+  </defs>
+  <g id="Group_39599" data-name="Group 39599" transform="translate(-167 -297.372)">
+    <g id="Ellipse_324" data-name="Ellipse 324" transform="translate(167 297.372)" fill="#fff" stroke="rgba(43,43,43,0.1)" stroke-width="1">
+      <circle cx="22" cy="22" r="22" stroke="none"/>
+      <circle cx="22" cy="22" r="21.5" fill="none"/>
+    </g>
+    <g id="apple" transform="translate(-72.485 0.56)">
+      <g id="Group_39363" data-name="Group 39363" transform="translate(251 312.893)" clip-path="url(#clip-path)">
+        <path id="Path_40440" data-name="Path 40440" d="M255.816,421.588a6.136,6.136,0,0,0-4.157,3.832,9.756,9.756,0,0,0,.531,7A10.737,10.737,0,0,0,256.7,437.3a5.156,5.156,0,0,0,5.014-.09l.058-.034c.058-.039.115-.073.166-.107a.457.457,0,0,1,.275-.09.509.509,0,0,1,.269.079,1.892,1.892,0,0,0,.218.14l.013.006a5.141,5.141,0,0,0,5.014.09,10.721,10.721,0,0,0,4.464-4.769h-.185a6.108,6.108,0,0,1-4.036-1.465,4.7,4.7,0,0,1-1.682-3.546,5.222,5.222,0,0,1,4.432-4.9,6.529,6.529,0,0,0-8.18.3l-.013.011a.477.477,0,0,1-.608,0l-.013-.011A6.638,6.638,0,0,0,255.816,421.588Zm0,0" transform="translate(-251.226 -421.294)" fill-rule="evenodd"/>
+      </g>
+      <path id="Path_40442" data-name="Path 40442" d="M417.452,306.421a4.755,4.755,0,0,0-1.363,3.852,5.5,5.5,0,0,0,4.122-1.288,4.732,4.732,0,0,0,1.363-3.852A5.5,5.5,0,0,0,417.452,306.421Zm0,0" transform="translate(-154.28 1)" fill-rule="evenodd"/>
+    </g>
+  </g>
+</svg>

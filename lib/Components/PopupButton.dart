@@ -14,6 +14,7 @@ class PopupButton extends StatelessWidget {
   final Color backgroundColor;
   final Color iconColor;
   final bool isSelected;
+  final double radius;
 
   const PopupButton({
     Key? key,
@@ -26,6 +27,7 @@ class PopupButton extends StatelessWidget {
     this.borderColor = const Color(0xffF4622E),
     this.backgroundColor = const Color(0xffF4622E),
     this.iconColor = Colors.white,
+    this.radius = 10,
     this.isSelected = false,
   }) : super(key: key);
 
@@ -40,7 +42,7 @@ class PopupButton extends StatelessWidget {
           side: BorderSide(color: borderColor, width: 1.5),
           backgroundColor: backgroundColor,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(radius),
           ),
           padding: const EdgeInsets.symmetric(vertical: 12),
           elevation: 0,
@@ -54,8 +56,8 @@ class PopupButton extends StatelessWidget {
               SvgPicture.asset(
                 'assets/Images/$icon.svg',
                 color: iconColor,
-                width: 13,
-                height: 13,
+                width: 15,
+                height: 15,
               ),
               const SizedBox(width: 8), // Space between icon and text
             ],

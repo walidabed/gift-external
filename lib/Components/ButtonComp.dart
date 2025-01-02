@@ -12,6 +12,7 @@ class ButtonComp extends StatelessWidget {
   final Color iconColor;
   final double fontSize;
   final double borderWidth;
+  final double radius;
 
   // Constructor
   const ButtonComp(
@@ -24,6 +25,7 @@ class ButtonComp extends StatelessWidget {
       this.borderColor = const Color(0xffF4622E), // Border color added
       this.backgroundColor = const Color(0xffF4622E),
       this.fontSize = 15,
+      this.radius = 10,
       this.iconColor = Colors.black,
       this.borderWidth = 2})
       : super(key: key);
@@ -46,7 +48,7 @@ class ButtonComp extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           backgroundColor: backgroundColor, // Set background color
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10), // Border radius
+            borderRadius: BorderRadius.circular(radius), // Border radius
             side: BorderSide(
                 color: borderColor, width: borderWidth), // Border added
           ),
